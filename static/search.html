@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="search">
+            <input type="text">
+            <div class="searchbutton">Search</div>
+        </div>
+        <div class="gallery"></div>
+        <div class="next">More photos</div>
+    </body>
+
+    <script>
+        const apiAuth = "563492ad6f91700001000001c08b1dc33dd44cb6a722ea328554b1f0";
+        const next = document.querySelector(".next");
+        const input = document.querySelector("input");
+        const searchbutton = document.querySelector(".searchbutton");
+        let pageNumber = 1;
+        let search = false;
+        let query = "";
+        
+        // async function downloadImage(imageSrc) {
+        //     const image = await fetch(imageSrc)
+        //     const imageBlog = await image.blob()
+        //     const imageURL = URL.createObjectURL(imageBlog)
+
+        //     const link = document.createElement('a')
+        //     link.href = imageURL
+        //     link.download = 'image file name here'
+        //     document.body.appendChild(link)
+        //     link.click()
+        //     document.body.removeChild(link)
+        // }
+
+
+        async function downloadImage() {
+            const buttonDownload = document.getElementById("btn");
+            console.log(buttonDownload);
+            const image = await fetch(imageSrc)
+            const imageBlog = await image.blob()
+            const imageURL = URL.createObjectURL(imageBlog)
+
+            const link = document.createElement('a')
+            link.href = imageURL
+            link.download = 'image file name here'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        }
+
+        async function curatedPhotos(pageNumber) {
+            const data = await fetch(`https://api.pexels.com/v1/curated?per_page=15&page=${pageNumber}`, {
+                method:"GET",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: apiAuth,
+                } 
+            });
+            const result = await data.json();
+            result.photos.forEach((photo) => {
+                const pic = document.createElement("div");
+                pic.innerHTML = `<img src=${photo.src.large}> <button id="btn" onclick="${downloadImage}" value="${photo.src.large}">Download</button> `;
+                document.querySelector(".gallery").appendChild(pic);
+            });
+        };
+
+        async function searchPhotos(query, pageNumber) {
+            const data = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=15$page=${pageNumber}`, {
+                method:"GET",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: apiAuth,
+                } 
+            });
+            const result = await data.json();
+            result.photos.forEach((photo) => {
+                const pic = document.createElement("div");
+                pic.innerHTML = `<img src=${photo.src.large}> <a href="${photo.src.large}">Download</a>`;
+                document.querySelector(".gallery").appendChild(pic);
+            });
+        };
+
+        function clear() {
+            input.value = "";
+            document.querySelector(".gallery").innerHTML = "";
+            pageNumber = 1;
+        }
+
+        // downloadButton.addEventListener("click", (e) =>{
+        //     e.preventDefault();
+        //     console.log(downloadButton);
+        //     downloadImage(photo.src.large);
+        // })
+
+        input.addEventListener("input", (event) => {
+            event.preventDefault();
+            query = event.target.value;
+        });
+
+
+        searchbutton.addEventListener("click", () =>{
+            if(input.value === "") return;
+            clear();
+            search = true;
+            searchPhotos(query, pageNumber);
+            pageNumber++;
+        });
+
+
+        next.addEventListener("click", (e) => {
+            if (!search) {
+                pageNumber++;
+                curatedPhotos(pageNumber);
+            } else {
+                if(query.value === "") return;
+                pageNumber++;
+                searchPhotos(query, pageNumber);
+            }
+        });
+
+        curatedPhotos(pageNumber);
+
+    </script>
+</html>

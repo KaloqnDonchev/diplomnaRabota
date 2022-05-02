@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Registration</h1>
+        <form id="reg-form">
+            <input type="text" id="username"/>
+            <input type="password" id="password"/>
+            <input type="submit" value="Submit Form"/>
+        </form>
+
+        <button>Already have an account?</button>
+    </body>
+
+    <script>
+        const form = document.getElementById("reg-form");
+        const buttonForLogin = document.querySelector("button");
+        buttonForLogin.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "/login.html";
+        })
+        form.addEventListener('submit', registerUser)
+
+        async function registerUser(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+               
+            const result = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }).then((res) => res.json())
+        }
+    </script>
+</html>
