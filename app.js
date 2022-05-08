@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); 
 const User = require('./model/user');
 const passwordHash = require('password-hash');
+const cors = require('cors');
 
 const JWT_SECRET = 'a12io31m23n123knjj!@#!#@Nn';
 
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/login-app-db',
       useUnifiedTopology: true,
 });
 
+app.use(cors());
 app.use(express.json());
 app.use('/', express.static(path.join(__dirname, 'static')));
 
@@ -60,13 +62,15 @@ app.post('/login', async (req,res) => {
 
 
 app.post('/register', async (req,res) => {
-    const { username, password: plainTextPassword } = req.body;
+    const { firstName, lastName, username, password: plainTextPassword } = req.body;
     const password = await bcrypt.hash(plainTextPassword, 10);
 
     await User.create({
+        firstName,
+        lastName,
         username,
         password
-    })
+    });
 })
 
 app.listen(3000, () => {

@@ -9,10 +9,12 @@
     </head>
     <body>
         <div class="search">
+            <button id="download-button">Download all pictures</button>
+            <button id="home-button">Home</button>
             <input type="text">
             <div class="searchbutton">Search</div>
         </div>
-        <div class="gallery"></div>
+        <div id="gallery" class="gallery"></div>
         <div class="next">More photos</div>
     </body>
 
@@ -50,7 +52,7 @@
             const result = await data.json();
             result.photos.forEach((photo) => {
                 const pic = document.createElement("div");
-                pic.innerHTML = `<img src=${photo.src.large}> <button id="btn" value="${photo.src.large}">Download</button> `;
+                pic.innerHTML = `<img src=${photo.src.large} class="photo"> <input value="${photo.src.large}" class="checkbox" type="checkbox" checked>`;
                 document.querySelector(".gallery").appendChild(pic);
             });
         };
@@ -66,7 +68,7 @@
             const result = await data.json();
             result.photos.forEach((photo) => {
                 const pic = document.createElement("div");
-                pic.innerHTML = `<img src=${photo.src.large}> <a href="${photo.src.large}">Download</a>`;
+                pic.innerHTML = `<img src=${photo.src.large}>`;
                 document.querySelector(".gallery").appendChild(pic);
             });
         };
@@ -103,6 +105,24 @@
                 searchPhotos(query, pageNumber);
             }
         });
+
+        homeButton = document.getElementById("home-button");
+        homeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            location.reload();
+        })
+
+        const downloadButton = document.getElementById("download-button");
+        downloadButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const photos = document.getElementsByClassName("photo");
+            const booleanFirstCheckbox = photos[0].nextSibling.nextSibling.checked;
+            console.log(photos)
+            // for (let photo of photos) {
+            //     downloadImage(photo);
+            // }
+        })
+
 
         curatedPhotos(pageNumber);
 
