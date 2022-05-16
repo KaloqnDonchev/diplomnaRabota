@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./model/user');
 const passwordHash = require('password-hash');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const JWT_SECRET = 'a12io31m23n123knjj!@#!#@Nn';
 
@@ -19,6 +20,8 @@ mongoose.connect('mongodb://localhost:27017/login-app-db',
 app.use(cors());
 app.use(express.json());
 app.use('/', express.static(path.join(__dirname, 'static')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.post('/change-password', async (req,res) => {
@@ -52,11 +55,16 @@ app.post('/login', async (req,res) => {
             },
             JWT_SECRET
         )
-        
+        res.cookie('jwt', token);
         return res.json({ status: 'ok', data: token });
     }
 
     res.json({ status: 'error', error: 'Invalid name/password'});
+});
+
+app.get('/logout', (req,res) => {
+    res.cookie('jwt', '', {maxAge: 1});
+    res.redirect('/');
 });
 
 
@@ -71,7 +79,12 @@ app.post('/register', async (req,res) => {
         username,
         password
     });
-})
+});
+
+app.post('/delete', async (req, res) => {
+    const { email:username } = req.body;
+    await User.deleteOne({username});
+}); 
 
 app.listen(3000, () => {
 })

@@ -10,7 +10,6 @@ body {
 }
 
 .search {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -20,7 +19,7 @@ body {
     align-items: center;
     z-index: 1;
     border-bottom: 1px solid black;
-    background: white;
+    background: rgba(133,146,157,255);
 }
 
 input {
@@ -29,13 +28,14 @@ input {
     font-size: 1rem;
 }
 
-.searchbutton {
+.styled-button {
     padding: 0.5rem 3rem;
     margin-left: 10px;
-    background: crimson;
+    background: rgba(101,107,120,255);
     color: white;
     font-size: 1.2rem;
-    text-align: center;   
+    text-align: center;
+    cursor: pointer;
 }
 
 .next {
@@ -58,7 +58,6 @@ input {
     row-gap: 10px;
     column-gap: 10px;
     justify-content: center;
-
 }
 
 .gallery div {
@@ -66,9 +65,8 @@ input {
 }
 
 img {
-    margin-left: 5px;
     height: 300px;
-    width: 200px;
+    width: 198px;
     object-fit: cover;
     object-position: center;
 
@@ -89,6 +87,18 @@ p {
     color: white;
     margin-left: 10px;
     font-weight: bold;
+}
+
+.photo {
+    left: 40px;
+}
+
+.image-box {
+    border: 1px solid black;
+}
+
+.checkbox {
+  margin-left: 95px;
 }
 
 
@@ -119,7 +129,7 @@ p {
 	border-radius: 3px;
 	margin-bottom: 15px;
 	background: #fff;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  border: 1px solid lightblue ;
 	padding: 30px;
 }
 .signup-form h2  {
@@ -190,8 +200,7 @@ p {
 }
 .login-form form {
     margin-bottom: 15px;
-    background: #f7f7f7;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border: 1px solid lightblue ;
     padding: 30px;
 }
 .login-form h2 {
@@ -204,4 +213,150 @@ p {
 .btn {        
     font-size: 15px;
     font-weight: bold;
+}
+
+#logout-button, #logout-button:hover,  #logout-button:focus, #logout-button:active{
+  text-decoration: none;
+     color: inherit;
+}
+
+/* header */
+
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i');
+
+.header{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  height:50vw;
+  min-height:400px;
+  max-height:550px;
+  min-width:300px;
+  color:#eee;
+}
+.header:after{
+  content:"";
+  width:100%;
+  height:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  z-index:-1;
+ background: linear-gradient(to bottom, rgba(0,0,0,0.12) 40%,rgba(27,32,48,1) 100%);
+}
+.header:before{
+  content:"";
+  width:100%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0); backface-visibility: hidden;
+  scale(1.0, 1.0);
+    transform: translateZ(0);
+  background:#1B2030 url(https://images.unsplash.com/photo-1571993142257-eae0b44cf0f1?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ) 50% 0 no-repeat;
+  background-size:100%;
+  background-attachment:fixed;
+  animation: grow 360s  linear 10ms infinite;
+  transition:all 0.4s ease-in-out;
+  z-index:-2
+}
+.header a{
+  color:#eee
+}
+.menu{
+  display:block;
+  width:40px;
+  height:30px;
+  border:2px solid #fff;
+  border-radius:3px;
+  position:absolute;
+  right:20px;
+  top:20px;
+  text-decoration:none
+}
+.menu:after{
+  content:"";
+  display:block;
+  width:20px;
+  height:3px;
+  background:#fff;
+  position:absolute;
+  margin:0 auto;
+  top:5px;
+  left:0;
+  right:0;
+  box-shadow:0 8px, 0 16px
+}
+.logo{
+  border:2px solid #fff;
+  border-radius:3px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  align-content:center;
+  margin:20px;
+  padding:0px 10px;
+  font-weight:900;
+  font-size:1.1em;
+  line-height:1;
+  box-sizing:border-box;
+  height:40px
+}
+.sides, .info{
+  flex: 0 0 auto;
+  width:50%
+}
+.info{
+  width:100%;
+  padding:15% 10% 0 10%;
+  text-align:center;
+  text-shadow:0 2px 3px rgba(0,0,0,0.2)
+}
+.author{
+  display:inline-block;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:url(https://i.imgur.com/6DLCsZcb.jpg) center no-repeat;
+  background-size:cover;
+  box-shadow:0 2px 3px rgba(0,0,0,0.3);
+  margin-bottom:3px
+}
+.info h4, .meta{
+  font-size:0.7em
+}
+.meta{
+  font-style:italic;
+}
+@keyframes grow{
+  0% { transform: scale(1) translateY(0px)}
+  50% { transform: scale(1.2) translateY(-400px)}
+}
+.content{  
+  padding:5% 10%;
+  text-align:justify
+}
+.btn{
+  color:#333;
+  border:2px solid;
+  border-radius:3px;
+  text-decoration:none;
+  display:inline-block;
+  padding:5px 10px;
+  font-weight:600
+}
+
+.twtr{
+  margin-top:100px
+}.btn.twtr:after{content:"\1F426";padding-left:5px}
+
+.admin-dashboard-header {
+  text-align: center;
 }
