@@ -22,20 +22,33 @@ body {
     background: rgba(133,146,157,255);
 }
 
+.searchbutton {
+    margin: 20px 20px;
+    padding: 0.5rem 3rem;
+    background: rgba(101,107,120,255);
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
 input {
     padding: 0.5rem;
     outline: none;
     font-size: 1rem;
 }
 
+
 .styled-button {
-    padding: 0.5rem 3rem;
-    margin-left: 10px;
+    display: block;
+    display:block;
+    padding: 30px 30px;
     background: rgba(101,107,120,255);
     color: white;
     font-size: 1.2rem;
     text-align: center;
     cursor: pointer;
+    height: 100px;
 }
 
 .next {
@@ -48,6 +61,17 @@ input {
     text-align: center;
     cursor: pointer;
 }
+
+.uncheck-button {
+  position: fixed;
+  top: 90%;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
 
 .gallery {
     width: 90%;
@@ -69,7 +93,6 @@ img {
     width: 198px;
     object-fit: cover;
     object-position: center;
-
 }
 
 p {
@@ -215,7 +238,7 @@ p {
     font-weight: bold;
 }
 
-#logout-button, #logout-button:hover,  #logout-button:focus, #logout-button:active{
+#logout-link, #logout-link:hover,  #logout-link:focus, #logout-link:active{
   text-decoration: none;
      color: inherit;
 }
@@ -359,4 +382,34 @@ p {
 
 .admin-dashboard-header {
   text-align: center;
+}
+
+.title-container {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.title {
+  font-family: Impact;
+  color:  rgba(101,107,120,255);
+  font-size: 80px;
+}
+
+
+
+
+/* MOBILE VERSION */
+
+@media only screen and (max-width: 600px){
+  .header {
+    display: none;
+  }
+
+  .gallery {
+    grid-template-columns: none;
+  }
 }
